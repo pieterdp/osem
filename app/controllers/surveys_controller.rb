@@ -40,6 +40,11 @@ class SurveysController < ApplicationController
       end
     end
 
-    redirect_back(fallback_location: root_path)
+    case @survey.target
+    when 'during_registration'
+      redirect_to conference_conference_registration_path(@conference.short_title)
+    else
+      redirect_back fallback: root_path
+    end
   end
 end

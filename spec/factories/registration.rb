@@ -6,5 +6,6 @@ FactoryBot.define do
   factory :registration do
     user
     conference
+    other_special_needs { '' }
   end
 end

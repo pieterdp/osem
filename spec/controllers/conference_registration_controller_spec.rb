@@ -290,13 +290,12 @@ describe ConferenceRegistrationsController, type: :controller do
       before do
         @registration = create(:registration,
                                conference: conference,
-                               user:       user,
-                               arrival:    Date.new(2014, 04, 25))
+                               user:       user)
       end
 
       context 'updates successfully' do
         before do
-          patch :update, params: { registration:  attributes_for(:registration, arrival: Date.new(2014, 04, 29)),
+          patch :update, params: { registration:  attributes_for(:registration),
                                    conference_id: conference.short_title }
         end
 
@@ -309,15 +308,14 @@ describe ConferenceRegistrationsController, type: :controller do
         end
 
         it 'updates the registration' do
-          @registration.reload
-          expect(@registration.arrival).to eq Date.new(2014, 04, 29)
+          expect{ @registration.reload }.to change(@registration, :updated_at)
         end
       end
 
       context 'update fails' do
         before do
           allow_any_instance_of(Registration).to receive(:update_attributes).and_return(false)
-          patch :update, params: { registration:  attributes_for(:registration, arrival: Date.new(2014, 04, 27)),
+          patch :update, params: { registration:  attributes_for(:registration),
                                    conference_id: conference.short_title }
         end
 
@@ -331,7 +329,7 @@ describe ConferenceRegistrationsController, type: :controller do
 
         it 'does not update the registration' do
           @registration.reload
-          expect(@registration.arrival).to eq Date.new(2014, 04, 25)
+          expect { @registration.reload }.not_to change(@registration, :updated_at)
         end
       end
     end
