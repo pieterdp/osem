@@ -1,0 +1,3 @@
+class BoothTheme < ApplicationRecord
+
+end

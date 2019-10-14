@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181113195810) do
+ActiveRecord::Schema.define(version: 2019_10_14_064111) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "answers", force: :cascade do |t|
     t.string "title"
@@ -28,6 +31,12 @@ ActiveRecord::Schema.define(version: 20181113195810) do
     t.index ["user_id"], name: "index_booth_requests_on_user_id"
   end
 
+  create_table "booth_themes", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "booths", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -39,6 +48,13 @@ ActiveRecord::Schema.define(version: 20181113195810) do
     t.integer "conference_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "duration"
+    t.string "logo_url"
+    t.string "contact_mail"
+    t.string "source_url"
+    t.text "requirements"
+    t.bigint "booth_themes_id"
+    t.index ["booth_themes_id"], name: "index_booths_on_booth_themes_id"
   end
 
   create_table "cfps", force: :cascade do |t|
@@ -658,4 +674,5 @@ ActiveRecord::Schema.define(version: 20181113195810) do
     t.datetime "updated_at"
   end
 
+  add_foreign_key "booths", "booth_themes", column: "booth_themes_id"
 end

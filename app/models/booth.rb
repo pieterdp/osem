@@ -11,6 +11,8 @@ class Booth < ApplicationRecord
   has_one :submitter_booth_user, -> { where(role: 'submitter') }, class_name: 'BoothRequest'
   has_one  :submitter, through: :submitter_booth_user, source: :user
 
+  has_one :booth_theme
+
   has_many :responsibles_booth_user, -> { where(role: 'responsible') }, class_name: 'BoothRequest'
   has_many :responsibles, through: :responsibles_booth_user, source: :user
 
