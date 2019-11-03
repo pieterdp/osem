@@ -32,6 +32,11 @@
       = link_to(admin_organizations_path) do
         %span.fa.fa-users
         Organizations
+  - if can? :index, BoothTheme
+    %li
+      = link_to(admin_booth_themes_path) do
+        %span.fa.fa-users
+        Booth Themes
   - if can? :index, PaperTrail::Version
     %li
       = link_to(admin_revision_history_path) do

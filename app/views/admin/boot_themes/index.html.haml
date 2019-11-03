@@ -1,0 +1,38 @@
+.row
+  .col-md-12
+    .page-header
+      %h1
+        #{(t'booth_theme').pluralize.capitalize }
+        .pull-right
+          - if can? :read, BoothTheme
+        = "(#{@booth_themes.length})" if @booth_themes.any?
+      %p.text-muted
+        All the #{(t'booth_theme').pluralize}
+
+.row
+  .col-md-12
+    - if @booth_themes.any?
+      %table.datatable
+        %thead
+          %th
+            %b ID
+          %th
+            %b Name
+          %th
+            %b Booths
+        - @booth_themes.each do |theme|
+          %tr
+            %td
+              = theme.id
+            %td
+              = theme.name
+            %td
+              %ul
+              - theme.booths.each_with_index do |booth, i|
+                .booth
+                  %li
+                    = booth.title
+.row
+  .col-md-12.text-right
+    - if can? :create, BoothTheme
+      = link_to 'New Theme', new_admin_conference_booth_theme_path(@conference.short_title), class: 'button btn btn-primary'

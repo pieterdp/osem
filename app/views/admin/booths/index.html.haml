@@ -65,7 +65,9 @@
           %th
             %b Submitter
           %th
-            %b Responsibles
+            %b Description
+          %th
+            %b How it fits FOSDEM
           %th
             %b State
           %th
@@ -82,10 +84,9 @@
             %td
               = link_to booth.submitter.name, admin_user_path(booth.submitter) if booth.submitter
             %td
-              .responsibles
-                - booth.responsibles.each_with_index do |responsible, i|
-                  = link_to responsible.name, admin_user_path(responsible)
-                  = ", " unless i == booth.responsibles.length - 1
+              .description
+            %td
+              .reasoning
             %td
               .btn-group
                 %button{ type: 'button', class: 'btn btn-link dropdown-toggle', 'data-toggle' => 'dropdown' }
